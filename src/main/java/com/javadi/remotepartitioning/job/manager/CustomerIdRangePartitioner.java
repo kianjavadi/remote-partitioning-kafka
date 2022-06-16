@@ -10,23 +10,21 @@ public class CustomerIdRangePartitioner implements Partitioner {
 
     private final int minId;
     private final int maxId;
-    private final int gridSize;
 
-    public CustomerIdRangePartitioner(int minId, int maxId, int gridSize) {
+    public CustomerIdRangePartitioner(int minId, int maxId) {
         this.minId = minId;
         this.maxId = maxId;
-        this.gridSize = gridSize;
     }
 
     @Override
     public Map<String, ExecutionContext> partition(int gridSize) {
-        int number = (maxId - minId) / this.gridSize + 1;
+        int number = (maxId - minId) / gridSize + 1;
 
         Map<String, ExecutionContext> result = new HashMap<>();
         for (int i = 0; i < number; i++) {
             ExecutionContext executionContext = new ExecutionContext();
-            int start = minId + (this.gridSize * i);
-            int end = start + (this.gridSize * (i + 1));
+            int start = minId + (gridSize * i);
+            int end = start + (gridSize * (i + 1));
             executionContext.putInt("minValue", start);
             executionContext.putInt("maxValue", Math.min(end, maxId));
             result.put("partition" + i, executionContext);

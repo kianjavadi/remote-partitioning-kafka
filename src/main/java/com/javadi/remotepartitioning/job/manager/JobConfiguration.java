@@ -51,6 +51,7 @@ public class JobConfiguration {
     public Step managerStep() {
         return managerStepBuilderFactory.get("managerStep")
                 .partitioner("workerStep", rangePartitioner(null, null))
+                .gridSize(ApplicationConstants.MANAGER_PARTITIONER_GRID_SIZE)
                 .outputChannel(requestForWorkers())
                 .inputChannel(repliesFromWorkers())
                 .jobExplorer(jobExplorer)
@@ -60,7 +61,7 @@ public class JobConfiguration {
     @Bean
     @StepScope
     public Partitioner rangePartitioner(@Value("#{jobParameters['minId']}") Integer minId, @Value("#{jobParameters['maxId']}") Integer maxId) {
-        return new CustomerIdRangePartitioner(minId, maxId, ApplicationConstants.MANAGER_PARTITIONER_GRID_SIZE);
+        return new CustomerIdRangePartitioner(minId, maxId);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
