@@ -40,3 +40,14 @@ kafka-topics --zookeeper 127.0.0.1:22181 --topic repliesFromWorkers --create --p
 ```
 
 now we need to run one manager node and three workers. the only difference is the environment properties, you can checkout the `main` branch for running manager node and `worker` branch for worker nodes
+
+
+as soon as you start the manager, database schema will be initialized with Customer table. you can run a Job that simply connects to this table, reads the customer based on the given ID range, and simply prints them in the console.
+for running a Job you need to make a REST call to the manager node:
+
+```
+curl --location --request POST 'localhost:28080/job?minId=10&maxId=28' \
+--header 'Content-Type: application/json' \
+--data-raw ''
+```
+`minId` and `maxId` define the ID range
