@@ -35,8 +35,8 @@ docker container run -d -p 23306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=passwo
 
 let's say we want to have one manager node with three workers, we need to create Kafka topics as below:
 ```
-kafka-topics --zookeeper 127.0.0.1:22181 --topic requestForWorkers --create --partitions 3 --replication-factor 1
-kafka-topics --zookeeper 127.0.0.1:22181 --topic repliesFromWorkers --create --partitions 1 --replication-factor 1
+kafka-topics --bootstrap-server 127.0.0.1:29092 --topic requestForWorkers --create --partitions 3 --replication-factor 1
+kafka-topics --bootstrap-server 127.0.0.1:29092 --topic repliesFromWorkers --create --partitions 1 --replication-factor 1
 ```
 
 now we need to run one manager node and three workers. the only difference is the environment properties, you can checkout the `main` branch for running manager node and `worker` branch for worker nodes
