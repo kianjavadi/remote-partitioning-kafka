@@ -1,5 +1,6 @@
 # remote-partitioning-kafka
 a sample spring batch application with remote partitioning with Kafka as the middleware
+
 this project was initially created to demonstarte a bug in spring-batch that incorrectly invokes job execution listeners in remote partitioning: https://github.com/spring-projects/spring-batch/issues/4133
 
 since Kafka is used as the middleware, you need to have Kafka running. for development purpose you can use docker-compose below
