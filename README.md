@@ -41,7 +41,11 @@ kafka-topics --bootstrap-server 127.0.0.1:29092 --topic requestForWorkers --crea
 kafka-topics --bootstrap-server 127.0.0.1:29092 --topic repliesFromWorkers --create --partitions 1 --replication-factor 1
 ```
 
-now we need to run one manager node and three workers. the only difference is the environment properties, you can checkout the `main` branch for running manager node and `worker` branch for worker nodes
+now we need to run one manager node and three workers. the only difference is the environment variables, 
+
+manager runs under `manager` profile (you can activate it by passing `-Dspring.profiles.active=manager` as an environment variable. e.g. `java "-Dspring.profiles.active=manager" -jar ./batch-demo-0.0.1-SNAPSHOT.jar`)
+
+workers run under `worker` profile (you can activate it by passing `-Dspring.profiles.active=worker` as an environment variable. e.g. `java "-Dspring.profiles.active=worker" -jar ./batch-demo-0.0.1-SNAPSHOT.jar`)
 
 
 as soon as you start the manager, database schema will be initialized with Customer table. you can run a Job that simply connects to this table, reads the customer based on the given ID range, and simply prints them in the console.
